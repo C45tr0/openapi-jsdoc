@@ -7,7 +7,7 @@
 module.exports.setup = function(app) {
 
   /**
-   * @swagger
+   * @openapi
    * /:
    *   get:
    *     description: Returns the homepage
@@ -20,30 +20,31 @@ module.exports.setup = function(app) {
   });
 
   /**
-   * @swagger
-   * definitions:
-   *   Login:
-   *     required:
-   *       - username
-   *       - password
-   *     properties:
-   *       username:
-   *         type: string
-   *       password:
-   *         type: string
-   *       path:
-   *         type: string
+   * @openapi
+   * components:
+   *   schemas:
+   *     Login:
+   *       required:
+   *         - username
+   *         - password
+   *       properties:
+   *         username:
+   *           type: string
+   *         password:
+   *           type: string
+   *         path:
+   *           type: string
    */
 
   /**
-   * @swagger
+   * @openapi
    * tags:
    *   name: Users
    *   description: User management and login
    */
 
   /**
-   * @swagger
+   * @openapi
    * tags:
    *   - name: Login
    *     description: Login
@@ -52,40 +53,32 @@ module.exports.setup = function(app) {
    */
 
   /**
-   * @swagger
+   * @openapi
    * /login:
    *   post:
    *     description: Login to the application
    *     tags: [Users, Login]
-   *     produces:
-   *       - application/json
-   *     parameters:
-   *       - $ref: '#/parameters/username'
-   *       - name: password
-   *         description: User's password.
-   *         in: formData
-   *         required: true
-   *         type: string
+   *     requestBody:
+   *       $ref: '#/components/schemas/LoginBody'
    *     responses:
    *       200:
    *         description: login
-   *         schema:
-   *           type: object
-   *           $ref: '#/definitions/Login'
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Login'
    */
   app.post('/login', function(req, res) {
     res.json(req.body);
   });
 
   /**
-   * @swagger
+   * @openapi
    * /users:
    *   get:
    *     description: Returns users
    *     tags:
    *      - Users
-   *     produces:
-   *      - application/json
    *     responses:
    *       200:
    *         description: users
@@ -97,15 +90,13 @@ module.exports.setup = function(app) {
   });
 
   /**
-   * @swagger
+   * @openapi
    * /users:
    *   post:
    *     description: Returns users
    *     tags: [Users]
-   *     produces:
-   *       - application/json
-   *     parameters:
-   *       - $ref: '#/parameters/username'
+   *     requestBody:
+   *       $ref: '#/components/schemas/LoginBody'
    *     responses:
    *       200:
    *         description: users

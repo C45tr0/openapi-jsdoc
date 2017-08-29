@@ -2,7 +2,7 @@
 
 module.exports.setup = function(app) {
   /**
-   * @swagger
+   * @openapi
    * /deprecated:
    *   get:
    *     description: Returns a string

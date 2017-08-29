@@ -5,7 +5,7 @@
 
 module.exports.setup = function(app) {
   /**
-   * @swagger
+   * @openapi
    * /hello:
    *   get:
    *     description: Returns the homepage

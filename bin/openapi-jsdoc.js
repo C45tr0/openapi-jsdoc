@@ -8,7 +8,7 @@
 var program = require('commander');
 var fs = require('fs');
 var path = require('path');
-var swaggerJSDoc = require('../');
+var openApiJSDoc = require('../');
 var pkg = require('../package.json');
 var jsYaml = require('js-yaml');
 var chokidar = require('chokidar');
@@ -16,47 +16,47 @@ var chokidar = require('chokidar');
 // Useful input.
 var input = process.argv.slice(2);
 // The spec, following a convention.
-var output = 'swagger.json';
+var output = 'openapi.json';
 
 /**
- * Creates a swagger specification from a definition and a set of files.
+ * Creates a OpenApi specification from a definition and a set of files.
  * @function
- * @param {object} swaggerDefinition - The swagger definition object.
+ * @param {object} openApiDefinition - The OpenApi definition object.
  * @param {array} apis - List of files to extract documentation from.
  * @param {array} output - Name the output file.
  */
-function createSpecification(swaggerDefinition, apis, output) {
-  // Options for the swagger docs
+function createSpecification(openApiDefinition, apis, output) {
+  // Options for the OpenApi docs
   var options = {
-    // Import swaggerDefinitions
-    swaggerDefinition: swaggerDefinition,
+    // Import openApiDefinition
+    openApiDefinition: openApiDefinition,
     // Path to the API docs
     apis: apis,
   };
 
-  // Initialize swagger-jsdoc -> returns validated JSON or YAML swagger spec
-  var swaggerSpec;
+  // Initialize OpenApi-jsdoc -> returns validated JSON or YAML OpenApi spec
+  var openApiSpec;
   var ext = path.extname(output);
 
   if (ext === '.yml' || ext === '.yaml') {
-    swaggerSpec = jsYaml.dump(swaggerJSDoc(options));
+    openApiSpec = jsYaml.dump(openApiJSDoc(options));
   } else {
-    swaggerSpec = JSON.stringify(swaggerJSDoc(options), null, 2);
+    openApiSpec = JSON.stringify(openApiJSDoc(options), null, 2);
   }
 
-  fs.writeFile(output, swaggerSpec, function writeSpecification(err) {
+  fs.writeFile(output, openApiSpec, function writeSpecification(err) {
     if (err) {
       throw err;
     }
-    console.log('Swagger specification is ready.');
+    console.log('OpenApi specification is ready.');
   });
 }
 
 program
   .version(pkg.version)
   .usage('[options] <path ...>')
-  .option('-d, --definition <swaggerDef.js>', 'Input swagger definition.')
-  .option('-o, --output [swaggerSpec.json]', 'Output swagger specification.')
+  .option('-d, --definition <openApiDef.js>', 'Input OpenApi definition.')
+  .option('-o, --output [openApiSpec.json]', 'Output OpenApi specification.')
   .option('-w, --watch', 'Whether or not to listen for continous changes.')
   .parse(process.argv);
 
@@ -69,7 +69,7 @@ if (!input.length) {
 if (!program.definition) {
   console.log('Definition file is required.');
   console.log('You can do that, for example: ');
-  console.log('$ swag-jsdoc -d swaggerDef.js ' + input.join(' '));
+  console.log('$ swag-jsdoc -d openApiDef.js ' + input.join(' '));
   program.help();
   process.exit(1);
 }
@@ -94,24 +94,24 @@ fs.readFile(program.definition, 'utf-8', function(err, data) {
   }
 
   // Get an object of the definition file configuration.
-  var swaggerDefinition = require(path.resolve(program.definition));
+  var openApiDefinition = require(path.resolve(program.definition));
 
   // Check for info object in the definition.
-  if (!swaggerDefinition.hasOwnProperty('info')) {
+  if (!openApiDefinition.hasOwnProperty('info')) {
     console.log('Definition file should contain an info object!');
-    return console.log('More at http://swagger.io/specification/#infoObject');
+    return console.log('More at http://openapi.io/specification/#infoObject');
   }
 
   // Check for title and version properties in the info object.
-  if (!swaggerDefinition.info.hasOwnProperty('title') ||
-    !swaggerDefinition.info.hasOwnProperty('version')
+  if (!openApiDefinition.info.hasOwnProperty('title') ||
+    !openApiDefinition.info.hasOwnProperty('version')
   ) {
     console.log('The title and version properties are required!');
-    return console.log('More at http://swagger.io/specification/#infoObject');
+    return console.log('More at http://openapi.io/specification/#infoObject');
   }
 
   // Continue only if arguments provided.
-  if (!swaggerDefinition.apis && !program.args.length) {
+  if (!openApiDefinition.apis && !program.args.length) {
     console.log('You must provide sources for reading API files.');
     // jscs:disable maximumLineLength
     return console.log('Either add filenames as arguments, or add an api key in your definitions file.');
@@ -120,9 +120,9 @@ fs.readFile(program.definition, 'utf-8', function(err, data) {
   // If there's no argument passed, but the user has defined Apis in
   // the definition file, pass them them onwards.
   if (program.args.length === 0 &&
-    swaggerDefinition.apis &&
-    swaggerDefinition.apis instanceof Array) {
-    program.args = swaggerDefinition.apis;
+    openApiDefinition.apis &&
+    openApiDefinition.apis instanceof Array) {
+    program.args = openApiDefinition.apis;
   }
 
   // If watch flag is turned on, listen for changes.
@@ -147,11 +147,11 @@ fs.readFile(program.definition, 'utf-8', function(err, data) {
     });
 
     watcher.on('all', function regenerateSpec() {
-      createSpecification(swaggerDefinition, program.args, output);
+      createSpecification(openApiDefinition, program.args, output);
     });
   }
   // Just create the specification.
   else {
-    createSpecification(swaggerDefinition, program.args, output);
+    createSpecification(openApiDefinition, program.args, output);
   }
 });

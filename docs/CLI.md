@@ -1,22 +1,22 @@
-## Command line usage of `swagger-jsdoc`
+## Command line usage of `openapi-jsdoc`
 
-If the module is installed globally, a command line helper `$ swagger-jsdoc` will be available.
-Otherwise `./bin/swagger-jsdoc` has access to the same interface.
+If the module is installed globally, a command line helper `$ openapi-jsdoc` will be available.
+Otherwise `./bin/openapi-jsdoc` has access to the same interface.
 
 ### Usage
 
 The easiest way to get started is using the help menu.
 
 ```
-$ swagger-jsdoc -h
+$ openapi-jsdoc -h
 ```
 
 #### Specify a definition file
 
-Swagger-jsdoc will read the `api` array in your definition file by default for file paths it should read.
+openapi-jsdoc will read the `api` array in your definition file by default for file paths it should read.
 
 ```
-$ swagger-jsdoc -d swaggerDef.js -o doc.json
+$ openapi-jsdoc -d openApiDef.js -o doc.json
 ```
 
 This could be any .js or .json file which will be `require()`-ed and parsed/validated as JSON.
@@ -24,22 +24,22 @@ This could be any .js or .json file which will be `require()`-ed and parsed/vali
 #### Specify input files (optional)
 
 ```
-$ swagger-jsdoc route1.js route2.js
+$ openapi-jsdoc route1.js route2.js
 ```
 Free form input, can be before or after definition. [Glob patterns](https://github.com/isaacs/node-glob) are acceptable to match multiple files with same extension `*.js`, `*.php`, etc. or patterns selecting files in nested folders as `**/*.js`, `**/*.php`, etc.
 
 #### Specify output file (optional)
 
 ```
-$ swagger-jsdoc -o custom_specification.json
+$ openapi-jsdoc -o custom_specification.json
 ```
 
-`swagger.json` by default. Output specification can accept also a `.yaml` or `.yml`. This generated OpenAPI specification can then be further tweaked with [`swagger-editor`](http://swagger.io/swagger-editor/) or similar.
+`openapi.json` by default. Output specification can accept also a `.yaml` or `.yml`. This generated OpenAPI specification can then be further tweaked with [`swagger-editor`](http://swagger.io/swagger-editor/) or similar.
 
 #### Watch for changes (optional)
 
 ```
-$ swagger-jsdoc -d swaggerDef.js route1.js route2.js -w
+$ openapi-jsdoc -d openApiDef.js route1.js route2.js -w
 ```
 
 The `-w` flag starts a watch task for input files with API documentation. This may be particularly useful when the output specification file is integrated with [Browsersync](https://browsersync.io/)

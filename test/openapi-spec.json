@@ -1,0 +1,172 @@
+{  
+   "info":{  
+      "title":"Hello World",
+      "version":"1.0.0",
+      "description":"A sample API"
+   },
+   "host":"localhost:3000",
+   "basePath":"/",
+   "openapi":"3.0.0",
+   "paths":{  
+      "/":{  
+         "get":{  
+            "description":"Returns the homepage",
+            "responses":{  
+               "200":{  
+                  "description":"hello world"
+               }
+            }
+         }
+      },
+      "/login":{  
+         "post":{  
+            "description":"Login to the application",
+            "tags":[  
+               "Users",
+               "Login"
+            ],
+            "requestBody":{  
+               "$ref":"#/components/schemas/LoginBody"
+            },
+            "responses":{  
+               "200":{  
+                  "description":"login",
+                  "content":{  
+                     "application/json":{  
+                        "schema":{  
+                           "$ref":"#/components/schemas/Login"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/users":{  
+         "get":{  
+            "description":"Returns users",
+            "tags":[  
+               "Users"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"users"
+               }
+            }
+         },
+         "post":{  
+            "description":"Returns users",
+            "tags":[  
+               "Users"
+            ],
+            "requestBody":{  
+               "$ref":"#/components/schemas/LoginBody"
+            },
+            "responses":{  
+               "200":{  
+                  "description":"users"
+               }
+            }
+         }
+      },
+      "/hello":{  
+         "get":{  
+            "description":"Returns the homepage",
+            "responses":{  
+               "200":{  
+                  "description":"hello world"
+               }
+            }
+         }
+      }
+   },
+   "components":{  
+      "schemas":{  
+         "Login":{  
+            "required":[  
+               "username",
+               "password"
+            ],
+            "properties":{  
+               "username":{  
+                  "type":"string"
+               },
+               "password":{  
+                  "type":"string"
+               },
+               "path":{  
+                  "type":"string"
+               }
+            }
+         },
+         "UserBody":{  
+            "type":"object",
+            "required":[  
+               "username"
+            ],
+            "properties":{  
+               "username":{  
+                  "type":"string",
+                  "description":"Username to use for login."
+               }
+            }
+         },
+         "LoginBody":{  
+            "allOf":[  
+               {  
+                  "$ref":"#/components/schemas/UserBody"
+               },
+               {  
+                  "required":[  
+                     "password"
+                  ],
+                  "properties":{  
+                     "password":{  
+                        "type":"string",
+                        "description":"User's password."
+                     }
+                  }
+               }
+            ]
+         }
+      },
+      "requestBodies":{  
+         "UserBody":{  
+            "description":"User Info",
+            "required":true,
+            "content":{  
+               "application/json":{  
+                  "schema":{  
+                     "$ref":"#/components/schemas/UserBody"
+                  }
+               }
+            }
+         },
+         "LoginBody":{  
+            "description":"Login Info",
+            "required":true,
+            "content":{  
+               "application/json":{  
+                  "schema":{  
+                     "$ref":"#/components/schemas/LoginBody"
+                  }
+               }
+            }
+         }
+      }
+   },
+   "tags":[  
+      {  
+         "name":"Users",
+         "description":"User management and login"
+      },
+      {  
+         "name":"Login",
+         "description":"Login"
+      },
+      {  
+         "name":"Accounts",
+         "description":"Accounts"
+      }
+   ]
+}

@@ -1,0 +1,35 @@
+components:
+  schemas:
+    UserBody:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+          description: Username to use for login.
+    LoginBody:
+      allOf:
+        - $ref: '#/components/schemas/UserBody'
+        - required:
+          - password
+          properties:
+            password:
+              type: string
+              description: User's password.
+  requestBodies:
+    UserBody:
+      description: User Info
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserBody'
+    LoginBody:
+      description: Login Info
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginBody'
+                

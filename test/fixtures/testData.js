@@ -1,7 +1,7 @@
-// Mock for Definitions Object. `definitions` is correct, not `definition`.
-var testDataDefinitions = [
+// Mock for Components Object. `components` is correct, not `component`.
+var testDataComponents = [
   {
-    "definition": {
+    "component": {
       "DefinitionSingular": {
         "required": ["username", "password"],
         "properties": {
@@ -16,7 +16,7 @@ var testDataDefinitions = [
     }
   },
   {
-    "definitions": {
+    "components": {
       "DefinitionPlural": {
         "required": ["username", "password"],
         "properties": {
@@ -108,7 +108,7 @@ var testDataResponses = [
 ];
 
 module.exports = {
-  definitions: testDataDefinitions,
+  components: testDataComponents,
   parameters: testDataParameters,
   securityDefinitions: testDataSecurityDefinitions,
   responses: testDataResponses,
