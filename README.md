@@ -5,6 +5,7 @@ documentation, servers, clients, tests and much more based on the rich [OpenAPI 
 
 [![npm Version](https://img.shields.io/npm/v/swagger-jsdoc.svg)](https://www.npmjs.com/package/swagger-jsdoc)
 [![npm Downloads](https://img.shields.io/npm/dm/swagger-jsdoc.svg)](https://www.npmjs.com/package/swagger-jsdoc)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FC45tr0%2Fopenapi-jsdoc.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FC45tr0%2Fopenapi-jsdoc?ref=badge_shield)
 
 [![Circle CI](https://img.shields.io/circleci/project/Surnet/swagger-jsdoc/master.svg)](https://circleci.com/gh/Surnet/swagger-jsdoc)
 [![Dependency Status](https://img.shields.io/gemnasium/Surnet/swagger-jsdoc.svg)](https://gemnasium.com/Surnet/swagger-jsdoc)
@@ -74,3 +75,7 @@ You can also use the tool via [command line interface](./docs/CLI.md). It suppor
 - Push to your own repository and create a new PR to merge back into this repository
 
 Note: If there are additions to the swagger definition object ensure that the output object keys comply with the swagger specification.  If there are keys that do not comply add them to the `excludedSwaggerProperties` list in `lib/swagger-helpers.js`.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FC45tr0%2Fopenapi-jsdoc.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FC45tr0%2Fopenapi-jsdoc?ref=badge_large)
